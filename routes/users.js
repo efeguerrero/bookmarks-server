@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import { UserController } from '../controllers/user.js';
 
 export const usersRouter = Router();
 
@@ -9,10 +10,7 @@ usersRouter.post('/', (req, res) => {
 });
 
 // Retrieve a user
-usersRouter.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({ message: `this is the user ${id}` });
-});
+usersRouter.get('/:id', UserController.getById);
 
 // Update User
 

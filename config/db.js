@@ -3,14 +3,14 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const { HOST, PORT, DATABASE, USER, PASSWORD } = process.env;
+const { DB_HOST, DB_PORT, DB_DATABASE, DB_USER, DB_PASSWORD } = process.env;
 
 const config = {
-  host: HOST,
-  port: PORT,
-  database: DATABASE,
-  user: USER,
-  password: PASSWORD,
+  host: DB_HOST,
+  port: DB_PORT,
+  database: DB_DATABASE,
+  user: DB_USER,
+  password: DB_PASSWORD,
 };
 
 const sql = postgres(config);
@@ -21,4 +21,4 @@ async function getPgVersion() {
 }
 getPgVersion();
 
-export { sql };
+export default sql
