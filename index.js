@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import { usersRouter } from './routes/users.js';
+import { errorHandler } from './middleware/errorHandler.js';
 
 dotenv.config();
 const app = express();
@@ -20,8 +21,11 @@ app.use('/users', usersRouter);
 
 // 404 to catch not matching routes
 app.use((req, res) => {
-  res.status(404).json({ message: 'No api endpoint here' });
+  res.status(404).json({ message: 'Route not found' });
 });
+
+// Error Handling
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
