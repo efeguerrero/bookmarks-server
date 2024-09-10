@@ -18,3 +18,10 @@ export class BadRequestError extends Error {
     this.statusCode = status;
   }
 }
+
+export class DupliacteResourceError extends Error {
+  constructor(message, status = 409) {
+    super(message);
+    this.statusCode = status;
+  }
+}

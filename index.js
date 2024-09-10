@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import morgan from 'morgan';
 import { usersRouter } from './routes/users.js';
 import { errorHandler } from './middleware/errorHandler.js';
+import { bookmarkGroupRouter } from './routes/bookmark-group.js';
 
 dotenv.config();
 const app = express();
@@ -18,6 +19,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRouter);
+app.use('/bookmark-group', bookmarkGroupRouter);
 
 // 404 to catch not matching routes
 app.use((req, res) => {
