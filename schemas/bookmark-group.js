@@ -1,6 +1,5 @@
-import { z } from 'zod';
+import {z } from 'zod';
 import { userIdSchema } from './userId.js';
-// import { parseZodError } from '../utils/zod-error-parsing.js';
 
 const bookmarkGroup = z.object({
   userId: userIdSchema,
@@ -17,13 +16,5 @@ const bookmarkGroup = z.object({
 export const validateBookmarkGroup = (object) =>
   bookmarkGroup.safeParse(object);
 
-// const data = {
-//   id: '222',
-//   user_id: '123e4567-e89b-12d3-a456-426614174002',
-//   slug: 2,
-//   name: 'he',
-// };
-
-// const result = validateBookmarkGroup(data);
-
-// console.log(parseZodError(result.error));
+export const validateDeleteBookmarkGroup = (object) =>
+  bookmarkGroup.pick({ userId: true }).safeParse(object);

@@ -1,5 +1,5 @@
 import sql from '../config/db.js';
-import { DupliacteResourceError } from '../utils/errors.js';
+import { DupliacteResourceError, NotFoundError } from '../utils/errors.js';
 
 export class BookmarkGroupModel {
   static create = async (input) => {
@@ -25,6 +25,28 @@ export class BookmarkGroupModel {
       }
 
       // Otherwise throw generic error
+      throw new Error();
+    }
+  };
+
+  static delete = async (input) => {
+    try {
+      const { id, userId } = input;
+
+      const result =
+        await sql`DELETE FROM bookmark_groups WHERE id=${id} AND user_id=${userId} RETURNING id `;
+
+      if (result.length === 0) {
+        throw new NotFoundError('Bookmark Group was not found');
+      }
+
+      return true;
+    } catch (error) {
+      // We return specific not found error if true, otherwise we default to generic Internal Server error
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+
       throw new Error();
     }
   };
