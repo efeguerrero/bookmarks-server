@@ -50,4 +50,16 @@ export class BookmarkGroupModel {
       throw new Error();
     }
   };
+
+  static getAll = async (input) => {
+    try {
+      const { userId } = input;
+      const result =
+        await sql`SELECT * FROM bookmark_groups WHERE user_id=${userId}`;
+      console.log(result);
+      return result;
+    } catch (error) {
+      throw new Error('');
+    }
+  };
 }

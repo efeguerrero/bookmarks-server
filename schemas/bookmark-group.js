@@ -1,4 +1,4 @@
-import {z } from 'zod';
+import { z } from 'zod';
 import { userIdSchema } from './userId.js';
 
 const bookmarkGroup = z.object({
@@ -15,6 +15,3 @@ const bookmarkGroup = z.object({
 
 export const validateBookmarkGroup = (object) =>
   bookmarkGroup.safeParse(object);
-
-export const validateDeleteBookmarkGroup = (object) =>
-  bookmarkGroup.pick({ userId: true }).safeParse(object);

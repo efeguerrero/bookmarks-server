@@ -6,4 +6,4 @@ export const userIdSchema = z
   .uuid({ message: 'Invalid user ID format' })
   .min(1, { message: 'User ID cannot be empty' });
 
-export const validateUserIdSchema = (id) => userIdSchema.safeParse(id);
+export const validateUserId = (id) => userIdSchema.safeParse(id);
