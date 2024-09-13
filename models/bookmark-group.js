@@ -55,7 +55,7 @@ export class BookmarkGroupModel {
     try {
       const { userId } = input;
       const result =
-        await sql`SELECT * FROM bookmark_groups WHERE user_id=${userId}`;
+        await sql`SELECT id, slug, name FROM bookmark_groups WHERE user_id=${userId}`;
 
       // If no results we return an empty array and NOT an error.
       return result;
