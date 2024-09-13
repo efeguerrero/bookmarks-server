@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { uuidSchema } from './uuid.js';
 
 const bookmarkGroup = z.object({
+  id: uuidSchema,
   userId: uuidSchema,
   slug: z
     .string()
@@ -16,5 +17,8 @@ const bookmarkGroup = z.object({
 export const validateBookmarkGroup = (object) =>
   bookmarkGroup.safeParse(object);
 
-export const validatePartialBookmarkGroup = (object) =>
-  bookmarkGroup.partial({ slug: true, name: true }).safeParse(object);
+export const validateBookmarkGroupInputs = (object) =>
+  bookmarkGroup.pick({ slug: true, name: true }).safeParse(object);
+
+export const validatePartialBookmarkGroupInputs = (object) =>
+  bookmarkGroup.pick({ slug: true, name: true }).partial().safeParse(object);
