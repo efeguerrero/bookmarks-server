@@ -5,6 +5,7 @@ import morgan from 'morgan';
 import { usersRouter } from './routes/users.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { bookmarkGroupRouter } from './routes/bookmark-group.js';
+import { corsMiddleware } from './middleware/cors.js';
 // import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
 
 dotenv.config();
@@ -12,9 +13,11 @@ const PORT = process.env.PORT ?? 8080;
 
 const app = express();
 
+app.disable('x-powered-by');
+
 app.use(morgan('dev'));
 app.use(express.json());
-app.disable('x-powered-by');
+app.use(corsMiddleware());
 
 // app.use(ClerkExpressRequireAuth());
 
