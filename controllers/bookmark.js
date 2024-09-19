@@ -36,4 +36,14 @@ export class BookmarkController {
       next(error);
     }
   };
+
+  static getAll = async (req, res, next) => {
+    try {
+      const { userId } = req.auth;
+      const data = await BookmarkModel.getAll({ userId });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

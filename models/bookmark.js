@@ -52,4 +52,18 @@ export class BookmarkModel {
       throw new Error('');
     }
   };
+
+  static getAll = async (input) => {
+    try {
+      const { userId } = input;
+
+      const result =
+        await sql`SELECT id, title, description, url, favicon_url, group_id FROM bookmarks WHERE user_id=${userId} ORDER BY title ASC`;
+
+      return result;
+    } catch (error) {
+      console.log(error);
+      throw new Error('');
+    }
+  };
 }
