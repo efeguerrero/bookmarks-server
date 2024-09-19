@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import 'dotenv/config';
 import morgan from 'morgan';
-import { usersRouter } from './routes/users.js';
 import { errorHandler } from './middleware/errorHandler.js';
 import { bookmarkGroupRouter } from './routes/bookmark-group.js';
 import { corsMiddleware } from './middleware/cors.js';
@@ -32,7 +31,6 @@ app.get('/', (req, res) => {
   res.json({ mesage: 'Welcome to bookmarks API.' });
 });
 
-app.use('/users', usersRouter);
 app.use('/bookmark-group', bookmarkGroupRouter);
 app.use('/bookmark', bookmarkRouter);
 
