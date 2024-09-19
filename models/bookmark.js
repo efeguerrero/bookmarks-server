@@ -1,5 +1,5 @@
 import sql from '../config/db.js';
-import { DupliacteResourceError } from '../utils/errors.js';
+import { DupliacteResourceError, NotFoundError } from '../utils/errors.js';
 
 export class BookmarkModel {
   static create = async (input) => {
@@ -28,6 +28,27 @@ export class BookmarkModel {
           'A bookmark with this url already exists.'
         );
       }
+      throw new Error('');
+    }
+  };
+
+  static delete = async (input) => {
+    try {
+      const { id, userId } = input;
+
+      const result =
+        await sql`DELETE FROM bookmarks WHERE id=${id} AND user_id=${userId} RETURNING id, title`;
+
+      if (result.length === 0) {
+        throw new NotFoundError('Bookmark does not exists');
+      }
+
+      return result[0];
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+      console.log(error);
       throw new Error('');
     }
   };
