@@ -27,10 +27,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.json({ mesage: 'Welcome to bookmarks API.' });
-});
-
 app.use('/bookmark-group', bookmarkGroupRouter);
 app.use('/bookmark', bookmarkRouter);
 

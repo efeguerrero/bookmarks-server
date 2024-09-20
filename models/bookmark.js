@@ -4,14 +4,15 @@ import { DupliacteResourceError, NotFoundError } from '../utils/errors.js';
 export class BookmarkModel {
   static create = async (input) => {
     try {
-      const { userId, title, url, groupId, ...optionaInputs } = input;
+      const { userId, title, url, groupId, faviconURL, description } = input;
 
       const newBookmark = {
         user_id: userId,
         title,
         url,
-        group_id: groupId,
-        ...optionaInputs,
+        group_id: groupId || null,
+        favicon_url: faviconURL || null,
+        description: description || null,
       };
 
       const result = await sql`INSERT INTO bookmarks ${sql(
@@ -28,6 +29,7 @@ export class BookmarkModel {
           'A bookmark with this url already exists.'
         );
       }
+      console.log(error);
       throw new Error('');
     }
   };
