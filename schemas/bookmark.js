@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { uuidSchema } from './uuid.js';
+import { customUrlSchema } from './url.js';
 
 export const bookmarkSchema = z.object({
   id: uuidSchema,
@@ -7,7 +8,7 @@ export const bookmarkSchema = z.object({
   title: z.string().min(1, { message: 'Bookmark title cannot be empty' }),
   description: z.string().nullish(),
   faviconURL: z.string().nullish(),
-  url: z.string().url(),
+  url: customUrlSchema,
   groupId: uuidSchema.nullish(),
   createdAt: z.string().date(),
   updatedAt: z.string().date(),

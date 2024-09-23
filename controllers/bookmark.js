@@ -3,7 +3,8 @@ import { BadRequestError } from '../utils/errors.js';
 import { validateNewBookmark } from '../schemas/bookmark.js';
 import { validateUUID } from '../schemas/uuid.js';
 import { fetchUrlData } from '../utils/fetch-url-data.js';
-import { z } from 'zod';
+import { customUrlSchema } from '../schemas/url.js';
+import { normalizeUrl } from '../utils/normalizeURL.js';
 
 export class BookmarkController {
   static create = async (req, res, next) => {
@@ -11,19 +12,20 @@ export class BookmarkController {
       const { userId } = req.auth;
       const { url, groupId } = req.body;
 
-      const urlResult = z.string().url().safeParse(url);
+      const urlResult = customUrlSchema.safeParse(url);
 
       if (urlResult.error) {
         throw new BadRequestError('Invalid URL');
       }
 
-      const urlData = await fetchUrlData(url);
+      const normalizedURL = normalizeUrl(url);
+      const urlData = await fetchUrlData(normalizedURL);
 
       console.log('urlData', urlData);
 
       const result = validateNewBookmark({
         ...urlData,
-        url,
+        url: normalizedURL,
         groupId,
       });
 

@@ -21,6 +21,6 @@ export const fetchUrlData = async (url) => {
   return {
     title,
     description,
-    faviconURL,
+    faviconURL: `${url}${faviconURL}`,
   };
 };
