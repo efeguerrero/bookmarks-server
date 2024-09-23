@@ -17,11 +17,11 @@ export class BookmarkController {
       if (urlResult.error) {
         throw new BadRequestError('Invalid URL');
       }
-
+      
       const normalizedURL = normalizeUrl(url);
       const urlData = await fetchUrlData(normalizedURL);
 
-      console.log('urlData', urlData);
+      // console.log('urlData', urlData);
 
       const result = validateNewBookmark({
         ...urlData,
