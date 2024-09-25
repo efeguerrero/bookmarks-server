@@ -17,7 +17,7 @@ export class BookmarkController {
       if (urlResult.error) {
         throw new BadRequestError('Invalid URL');
       }
-      
+
       const normalizedURL = normalizeUrl(url);
       const urlData = await fetchUrlData(normalizedURL);
 

@@ -17,9 +17,16 @@ export class BookmarkModel {
 
       const result = await sql`INSERT INTO bookmarks ${sql(
         newBookmark
-      )} RETURNING id, title, description, url, favicon_url, group_id `;
+      )} RETURNING id, title, description, url, favicon_url, group_id, created_at`;
 
-      return result[0];
+      return {
+        id: result[0].id,
+        title: result[0].title,
+        description: result[0].description,
+        faviconURL: result[0].favicon_url,
+        groupId: result[0].group_id,
+        createdAt: result[0].created_at,
+      };
     } catch (error) {
       if (
         error.code === '23505' &&
@@ -60,9 +67,21 @@ export class BookmarkModel {
       const { userId } = input;
 
       const result =
-        await sql`SELECT id, title, description, url, favicon_url, group_id FROM bookmarks WHERE user_id=${userId} ORDER BY title ASC`;
+        await sql`SELECT id, title, description, url, favicon_url, group_id, created_at FROM bookmarks WHERE user_id=${userId} ORDER BY title ASC`;
 
-      return result;
+      const bookmarks = result.map((item) => {
+        return {
+          id: item.id,
+          title: item.title,
+          description: item.description,
+          url: item.url,
+          faviconURL: item.favicon_url,
+          groupId: item.group_id,
+          createdAt: item.created_at,
+        };
+      });
+
+      return bookmarks;
     } catch (error) {
       console.log(error);
       throw new Error('');
