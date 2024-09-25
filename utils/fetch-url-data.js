@@ -11,16 +11,20 @@ export const fetchUrlData = async (url) => {
     $('meta[name="description"]').attr('content') ||
     $('meta[property="og:description"]').attr('content') ||
     null;
-  const faviconURL =
-    $('link[rel="icon"]').attr('href') ||
-    $('link[rel="shortcut icon"]').attr('href') ||
-    null;
+
+  // Use Google favicon fetching to get the website url or use google as fallback
+  const googleFaviconUrl = `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${encodeURIComponent(
+    url
+  )}&size=128`;
+
+  const faviconResponse = await fetch(googleFaviconUrl);
+  const faviconURL = faviconResponse.headers.get('Content-Location') || null;
 
   console.log(title, description, faviconURL);
 
   return {
     title,
     description,
-    faviconURL: `${url}${faviconURL}`,
+    faviconURL,
   };
 };
