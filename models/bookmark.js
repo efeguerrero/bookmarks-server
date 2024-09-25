@@ -23,6 +23,7 @@ export class BookmarkModel {
         id: result[0].id,
         title: result[0].title,
         description: result[0].description,
+        url: result[0].url,
         faviconURL: result[0].favicon_url,
         groupId: result[0].group_id,
         createdAt: result[0].created_at,
