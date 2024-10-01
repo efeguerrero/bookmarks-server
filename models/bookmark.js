@@ -89,11 +89,11 @@ export class BookmarkModel {
     }
   };
 
-  static updateGroup = async ({ id, groupId, userId }) => {
+  static updateGroup = async ({ id, newGroupId, userId }) => {
     try {
       const bookmark = {
         id,
-        group_id: groupId,
+        group_id: newGroupId,
       };
       const result = await sql`UPDATE bookmarks SET ${sql(
         bookmark,

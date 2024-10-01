@@ -5,7 +5,7 @@ import morgan from 'morgan';
 import { errorHandler } from './middleware/errorHandler.js';
 import { bookmarkGroupRouter } from './routes/bookmark-group.js';
 import { corsMiddleware } from './middleware/cors.js';
-import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
+// import { ClerkExpressRequireAuth } from '@clerk/clerk-sdk-node';
 import { bookmarkRouter } from './routes/bookmark.js';
 
 dotenv.config();
@@ -19,13 +19,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(corsMiddleware());
 
-app.use(ClerkExpressRequireAuth());
+// app.use(ClerkExpressRequireAuth());
 
 // Hardcoded clerk auth
-// app.use((req, res, next) => {
-//   req.auth = { userId: 'user_2lyQ6AwpOWV6ZHvbEvRpXBlWE2s' };
-//   next();
-// });
+app.use((req, res, next) => {
+  req.auth = { userId: 'user_2lyQ6AwpOWV6ZHvbEvRpXBlWE2s' };
+  next();
+});
 
 app.use('/bookmark-group', bookmarkGroupRouter);
 app.use('/bookmark', bookmarkRouter);

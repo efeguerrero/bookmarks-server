@@ -75,16 +75,16 @@ export class BookmarkController {
     try {
       const { userId } = req.auth;
       const { id } = req.params;
-      const { groupId } = req.body;
+      const { newGroupId } = req.body;
 
       const idResult = validateUUID(id);
-      const groupIdResult = validateUUID(groupId);
+      const groupIdResult = validateUUID(newGroupId);
 
       if (idResult.error || groupIdResult.error) {
         throw new BadRequestError('Invalid Request Parameters');
       }
 
-      const data = await BookmarkModel.updateGroup({ id, groupId, userId });
+      const data = await BookmarkModel.updateGroup({ id, newGroupId, userId });
       res.status(200).json(data);
     } catch (error) {
       next(error);
