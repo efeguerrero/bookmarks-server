@@ -70,4 +70,24 @@ export class BookmarkController {
       next(error);
     }
   };
+
+  static updateGroup = async (req, res, next) => {
+    try {
+      const { userId } = req.auth;
+      const { id } = req.params;
+      const { groupId } = req.body;
+
+      const idResult = validateUUID(id);
+      const groupIdResult = validateUUID(groupId);
+
+      if (idResult.error || groupIdResult.error) {
+        throw new BadRequestError('Invalid Request Parameters');
+      }
+
+      const data = await BookmarkModel.updateGroup({ id, groupId, userId });
+      res.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

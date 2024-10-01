@@ -88,4 +88,37 @@ export class BookmarkModel {
       throw new Error('');
     }
   };
+
+  static updateGroup = async ({ id, groupId, userId }) => {
+    try {
+      const bookmark = {
+        id,
+        group_id: groupId,
+      };
+      const result = await sql`UPDATE bookmarks SET ${sql(
+        bookmark,
+        'group_id'
+      )} WHERE id=${bookmark.id} AND user_id=${userId} RETURNING *`;
+
+      if (result.length === 0) {
+        throw new NotFoundError('Bookmark does not exists');
+      }
+
+      return result[0];
+    } catch (error) {
+      if (error instanceof NotFoundError) {
+        throw error;
+      }
+
+      if (
+        error.code === '23503' &&
+        error.constraint_name === 'bookmarks_group_id_fkey'
+      ) {
+        throw new NotFoundError('Assigned group does not exist.');
+      }
+
+      console.log(error);
+      throw new Error('');
+    }
+  };
 }
