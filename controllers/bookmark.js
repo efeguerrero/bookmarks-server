@@ -78,9 +78,16 @@ export class BookmarkController {
       const { newGroupId } = req.body;
 
       const idResult = validateUUID(id);
-      const groupIdResult = validateUUID(newGroupId);
 
-      if (idResult.error || groupIdResult.error) {
+      // If we un-assign groups from a bookmark it will be null!
+      if (newGroupId) {
+        const groupIdResult = validateUUID(newGroupId);
+        if (idResult.error || groupIdResult.error) {
+          throw new BadRequestError('Invalid Request Parameters');
+        }
+      }
+
+      if (idResult.error) {
         throw new BadRequestError('Invalid Request Parameters');
       }
 
