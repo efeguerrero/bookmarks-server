@@ -82,7 +82,7 @@ export class BookmarkGroupModel {
       if (error instanceof NotFoundError) {
         throw error;
       }
-      console.log(error);
+      // console.log(error);
 
       throw new Error();
     }

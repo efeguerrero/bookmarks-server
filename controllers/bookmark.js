@@ -15,7 +15,7 @@ export class BookmarkController {
       const urlResult = customUrlSchema.safeParse(url);
 
       if (urlResult.error) {
-        throw new BadRequestError('Invalid URL');
+        throw new BadRequestError('Unable to process URL.');
       }
 
       const normalizedURL = normalizeUrl(url);
@@ -30,7 +30,9 @@ export class BookmarkController {
       });
 
       if (result.error) {
-        throw new BadRequestError('Error processing this website information');
+        throw new BadRequestError(
+          'We could not process this website information.'
+        );
       }
 
       const newBookmark = await BookmarkModel.create({
