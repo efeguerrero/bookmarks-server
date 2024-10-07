@@ -89,7 +89,7 @@ export class BookmarkModel {
     }
   };
 
-  static updateGroup = async ({ id, newGroupId, userId }) => {
+  static update = async ({ id, newGroupId, userId }) => {
     try {
       const bookmark = {
         id,
@@ -98,13 +98,25 @@ export class BookmarkModel {
       const result = await sql`UPDATE bookmarks SET ${sql(
         bookmark,
         'group_id'
-      )} WHERE id=${bookmark.id} AND user_id=${userId} RETURNING *`;
+      )} WHERE id=${
+        bookmark.id
+      } AND user_id=${userId} RETURNING id, title, description, url, favicon_url, group_id, created_at`;
 
       if (result.length === 0) {
         throw new NotFoundError('Bookmark does not exists');
       }
 
-      return result[0];
+      const updateBookmark = result[0];
+
+      return {
+        id: updateBookmark.id,
+        title: updateBookmark.title,
+        description: updateBookmark.description,
+        url: updateBookmark.url,
+        faviconURL: updateBookmark.favicon_url,
+        groupId: updateBookmark.group_id,
+        createdAt: updateBookmark.created_at,
+      };
     } catch (error) {
       if (error instanceof NotFoundError) {
         throw error;
@@ -117,7 +129,7 @@ export class BookmarkModel {
         throw new NotFoundError('Assigned group does not exist.');
       }
 
-      console.log(error);
+      // console.log(error);
       throw new Error('');
     }
   };

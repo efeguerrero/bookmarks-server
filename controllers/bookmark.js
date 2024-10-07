@@ -73,7 +73,7 @@ export class BookmarkController {
     }
   };
 
-  static updateGroup = async (req, res, next) => {
+  static update = async (req, res, next) => {
     try {
       const { userId } = req.auth;
       const { id } = req.params;
@@ -93,7 +93,7 @@ export class BookmarkController {
         throw new BadRequestError('Invalid Request Parameters');
       }
 
-      const data = await BookmarkModel.updateGroup({ id, newGroupId, userId });
+      const data = await BookmarkModel.update({ id, newGroupId, userId });
       res.status(200).json(data);
     } catch (error) {
       next(error);
