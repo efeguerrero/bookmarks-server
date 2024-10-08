@@ -13,6 +13,8 @@ const config = {
   password: DB_PASSWORD,
 };
 
+console.log(config);
+
 const sql = postgres(config);
 
 async function getPgVersion() {
@@ -21,4 +23,4 @@ async function getPgVersion() {
 }
 getPgVersion();
 
-export default sql
+export default sql;
