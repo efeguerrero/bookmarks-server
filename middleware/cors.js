@@ -5,5 +5,5 @@ dotenv.config();
 
 export const corsMiddleware = () =>
   cors({
-    origin: [process.env.DEV_ORIGIN, process.env.PROD_ORIGIN],
+    origin: [process.env.ORIGIN],
   });
