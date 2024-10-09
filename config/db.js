@@ -21,4 +21,4 @@ async function getPgVersion() {
 }
 getPgVersion();
 
-export default sql
+export default sql;
