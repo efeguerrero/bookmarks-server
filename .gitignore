@@ -10,3 +10,4 @@ node_modules
 
 # personal txt files
 .txt
+.vercel

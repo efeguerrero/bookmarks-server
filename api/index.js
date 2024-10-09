@@ -32,7 +32,7 @@ app.use('/bookmark', bookmarkRouter);
 
 // 404 to catch not matching routes
 app.use((req, res) => {
-  console.log(req.url);
+  // console.log(req.url);
   res.status(404).json({ message: 'Route not found' });
 });
 
@@ -42,3 +42,5 @@ app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`Server is listening on http://localhost:${PORT}`);
 });
+
+export default app;

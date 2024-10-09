@@ -37,7 +37,7 @@ export class BookmarkModel {
           'A bookmark with this url already exists.'
         );
       }
-      console.log(error);
+      // console.log(error);
       throw new Error('');
     }
   };
@@ -58,7 +58,7 @@ export class BookmarkModel {
       if (error instanceof NotFoundError) {
         throw error;
       }
-      console.log(error);
+      // console.log(error);
       throw new Error('');
     }
   };
@@ -84,7 +84,7 @@ export class BookmarkModel {
 
       return bookmarks;
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       throw new Error('');
     }
   };
