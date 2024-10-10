@@ -16,10 +16,10 @@ const { DATABASE_URL } = process.env;
 
 const sql = postgres(DATABASE_URL);
 
-async function getPgVersion() {
-  const result = await sql`select version()`;
-  console.log(result[0]);
-}
-getPgVersion();
+// async function getPgVersion() {
+//   const result = await sql`select version()`;
+//   // console.log(result[0]);
+// }
+// getPgVersion();
 
 export default sql;

@@ -22,7 +22,7 @@ export const fetchUrlData = async (url) => {
     const faviconResponse = await fetch(googleFaviconUrl);
     const faviconURL = faviconResponse.headers.get('Content-Location') || null;
 
-    console.log(title, description, faviconURL);
+    // console.log(title, description, faviconURL);
 
     return {
       title,

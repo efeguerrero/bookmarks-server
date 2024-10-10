@@ -1,5 +1,5 @@
 export const errorHandler = (err, req, res, next) => {
-  console.log('errorHandler', err);
+  // console.log('errorHandler', err);
 
   // Setting headers if specified
   if (err.headers) {
