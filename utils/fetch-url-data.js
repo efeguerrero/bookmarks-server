@@ -4,7 +4,7 @@ import { BadRequestError } from './errors.js';
 
 export const fetchUrlData = async (url) => {
   try {
-    const urlFetch = await fetch(url);
+    const urlFetch = await fetch(url, { signal: AbortSignal.timeout(10000) });
     const html = await urlFetch.text();
     const $ = cheerio.load(html);
 
